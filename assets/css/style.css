@@ -1,0 +1,26 @@
+body {
+    font-family: Arial;
+    text-align: center;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-top: 50px;
+}
+
+.card {
+    padding: 20px;
+    width: 200px;
+    background: #f0f0f0;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.card:hover {
+    background: #007BFF;
+    color: white;
+}
