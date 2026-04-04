@@ -24,3 +24,6 @@ body {
     background: #007BFF;
     color: white;
 }
+.card h3 {
+    margin: 10px 0;
+}

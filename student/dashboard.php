@@ -14,7 +14,7 @@ if (!isset($_SESSION['student_id'])) {
 </head>
 <body>
 
-<h2>Welcome to Dashboar</h2>
+<h2>Welcome to Dashboard</h2>
 
 <a href="categories.php">Give Feedback</a>
 <br><br>
