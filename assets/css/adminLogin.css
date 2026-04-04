@@ -1,0 +1,140 @@
+/* ============================================================
+   ADMIN LOGIN — Balanced Dark "Midnight Slate" Edition
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@600;700&family=Geist+Mono:wght@300;400;500&display=swap');
+
+:root {
+  /* Deep, comfortable dark tones (not pitch black) */
+  --bg:           #0f172a;      /* Very dark navy/slate */
+  --surface:      #1e293b;      /* Lighter navy for the card */
+  --surface-2:    #334155;      /* Slate for inputs */
+  --border:       #475569;      /* Defined borders for clarity */
+  --accent:       #38bdf8;      /* Sky blue accent (very readable) */
+  --text-1:       #f8fafc;      /* Crisp off-white text */
+  --text-2:       #cbd5e1;      /* Soft grey text */
+  --text-3:       #94a3b8;      /* Muted slate for labels */
+  --danger:       #fb7185;
+  --danger-bg:    rgba(251, 113, 133, 0.1);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Geist Mono', monospace;
+  background-color: var(--bg);
+  /* Subtile depth gradient */
+  background-image: 
+    radial-gradient(at 50% 0%, rgba(56, 189, 248, 0.05) 0px, transparent 50%);
+  padding: 24px;
+}
+
+/* ── Card ───────────────────────────────────────── */
+.auth-card {
+  width: 100%;
+  max-width: 400px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 48px 40px;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+  animation: fadeIn 0.5s ease-out;
+}
+
+/* ── Heading ────────────────────────────────────── */
+.auth-title {
+  font-family: 'Syne', sans-serif;
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--text-1);
+  letter-spacing: -0.02em;
+  margin-bottom: 32px;
+  text-align: center;
+}
+
+/* ── Error ──────────────────────────────────────── */
+.auth-error {
+  background: var(--danger-bg);
+  border: 1px solid var(--danger);
+  border-radius: 10px;
+  padding: 12px;
+  color: var(--danger);
+  font-size: 13px;
+  margin-bottom: 24px;
+  text-align: center;
+}
+
+/* ── Fields ─────────────────────────────────────── */
+.field { margin-bottom: 22px; }
+
+.field label {
+  display: block;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-3);
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+
+.field input {
+  width: 100%;
+  padding: 14px 16px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  color: var(--text-1);
+  font-family: 'Geist Mono', monospace;
+  font-size: 14px;
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+.field input:focus {
+  border-color: var(--accent);
+  background: #1e293b;
+  box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.1);
+}
+
+.field input::placeholder {
+  color: var(--text-3);
+  opacity: 0.5;
+}
+
+/* ── Button ─────────────────────────────────────── */
+.btn-primary {
+  width: 100%;
+  padding: 15px;
+  margin-top: 8px;
+  background: var(--accent);
+  border: none;
+  border-radius: 10px;
+  color: #0f172a; /* Dark text on light button for contrast */
+  font-family: 'Syne', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-primary:hover {
+  background: #7dd3fc; /* Lighter blue on hover */
+  transform: translateY(-1px);
+}
+
+/* ── Divider ────────────────────────────────────── */
+.auth-sep {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin-top: 30px;
+  opacity: 0.5;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}

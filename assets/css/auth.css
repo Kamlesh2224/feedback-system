@@ -1,0 +1,129 @@
+/* ============================================================
+   CYBER-DARK AUTH THEME — REFINED SPACING
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;700&family=Geist+Mono:wght@400;500&display=swap');
+
+:root {
+  --bg:           #0b1120;
+  --card-bg:      #1e293b;
+  --input-bg:     #334155;
+  --border:       rgba(255, 255, 255, 0.05);
+  --accent:       #38bdf8;
+  --text-main:    #ffffff;
+  --text-muted:   #94a3b8;
+  --radius:       12px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  background-color: var(--bg);
+  padding: 20px;
+}
+
+.auth-card {
+  width: 100%;
+  max-width: 480px; 
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  padding: 45px 40px;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+}
+
+.auth-title {
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--text-main);
+  margin-bottom: 35px; /* Gap below Title */
+  letter-spacing: -0.02em;
+  text-align: center;
+}
+
+/* ── Spacing Container ────────────────────────── */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px; /* This creates a uniform gap between all fields */
+}
+
+.field {
+  text-align: left;
+}
+
+.field label {
+  display: block;
+  font-family: 'Geist Mono', monospace;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--text-muted);
+  margin-bottom: 10px; /* Gap between Label and Input */
+  font-weight: 600;
+}
+
+.field input, .field select {
+  width: 100%;
+  padding: 14px 16px;
+  background: var(--input-bg);
+  border: 1px solid transparent;
+  border-radius: var(--radius);
+  color: var(--text-main);
+  font-family: 'Geist Mono', monospace;
+  font-size: 13px;
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+.field-hint {
+  font-size: 11px;
+  color: var(--text-muted);
+  margin-top: 8px; /* Gap between Input and Hint text */
+  opacity: 0.8;
+}
+
+/* ── Button with extra Top Gap ────────────────── */
+.btn-primary {
+  width: 100%;
+  padding: 16px;
+  background: var(--accent);
+  border: none;
+  border-radius: var(--radius);
+  color: #0b1120;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  margin-top: 10px; /* Extra gap specifically above the button */
+  transition: transform 0.1s ease, opacity 0.2s ease;
+}
+
+.btn-primary:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
+
+/* ── Footer ─────────────────────────────────────── */
+.auth-sep {
+  border: none;
+  border-top: 1px solid rgba(255,255,255,0.05);
+  margin: 30px 0 20px; /* Gap around the separator line */
+}
+
+.auth-footer {
+  text-align: center;
+  font-size: 13px;
+  color: var(--text-muted);
+  margin-top: 10px;
+}
+
+.auth-footer a {
+  color: var(--accent);
+  text-decoration: none;
+  font-weight: 600;
+}

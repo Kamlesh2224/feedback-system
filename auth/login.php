@@ -16,18 +16,43 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $_SESSION['student_id'] = $row['id'];
             header("Location: ../student/dashboard.php");
             exit();
-        } else {
-            echo "Invalid password!";
-        }
-    } else {
-        echo "User not found!";
-    }
+        } else { $error = "The password you entered is incorrect."; }
+    } else { $error = "No account found with that PRN."; }
 }
 ?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | Student Portal</title>
+    <link rel="stylesheet" href="../assets/css/auth.css">
+</head>
+<body>
 
-<h2>Login</h2>
-<form method="POST">
-    PRN: <input type="text" name="prn" required><br><br>
-    Password: <input type="password" name="password" required><br><br>
-    <button type="submit">Login</button>
-</form>
+    <div class="auth-card">
+        <h1 class="auth-title">Student Login</h1>
+        <?php if(isset($error)): ?>
+            <div class="msg msg-error"><?php echo $error; ?></div>
+        <?php endif; ?>
+
+        <form method="POST">
+            <div class="field">
+                <label>PRN Number</label>
+                <input type="text" name="prn" placeholder="e.g. 20241001" required>
+            </div>
+            <div class="field">
+                <label>Password</label>
+                <input type="password" name="password" placeholder="••••••••" required>
+            </div>
+            <button type="submit" class="btn-primary">Sign In</button>
+        </form>
+
+        <hr class="auth-sep">
+        <div class="auth-footer">
+            Don't have an account? <a href="register.php">Create one now</a>
+        </div>
+    </div>
+
+</body>
+</html>
