@@ -1,0 +1,130 @@
+/* ============================================================
+   BUG REPORT — CYBER DARK TERMINAL STYLE
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;700&family=Geist+Mono:wght@400;500&display=swap');
+
+:root {
+  --bg:           #0b1120;
+  --card-bg:      #1e293b;
+  --input-bg:     #0f172a;      /* Darker for the textarea */
+  --border:       rgba(255, 255, 255, 0.05);
+  --accent:       #38bdf8;
+  --text-main:    #ffffff;
+  --text-muted:   #94a3b8;
+  --radius:       16px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  min-height: 100vh;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  background-color: var(--bg);
+  color: var(--text-main);
+  padding: 40px 20px;
+}
+
+.dashboard-container {
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+/* ── Header ── */
+.dash-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 40px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--border);
+}
+
+.dash-label {
+  font-family: 'Geist Mono', monospace;
+  font-size: 11px;
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+}
+
+.dash-title { font-size: 32px; font-weight: 700; }
+
+.btn-back {
+  text-decoration: none;
+  color: var(--accent);
+  background: rgba(56, 189, 248, 0.1);
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 14px;
+}
+
+/* ── Report Card ── */
+.report-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 35px;
+}
+
+.q-number {
+  font-family: 'Geist Mono', monospace;
+  font-size: 11px;
+  color: var(--accent);
+  margin-bottom: 10px;
+}
+
+.q-text {
+  font-size: 15px;
+  color: var(--text-muted);
+  margin-bottom: 25px;
+  line-height: 1.6;
+}
+
+/* ── Textarea Styling ── */
+textarea {
+  width: 100%;
+  min-height: 200px;
+  background: var(--input-bg);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 20px;
+  color: var(--text-main);
+  font-family: 'Geist Mono', monospace;
+  font-size: 14px;
+  line-height: 1.6;
+  resize: vertical;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+textarea:focus {
+  border-color: var(--accent);
+}
+
+/* ── Submit Button ── */
+.btn-submit {
+  width: 100%;
+  padding: 16px;
+  background: var(--accent);
+  border: none;
+  border-radius: 12px;
+  color: #0b1120;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  margin-top: 25px;
+  transition: all 0.2s;
+}
+
+.btn-submit:hover { filter: brightness(1.1); transform: translateY(-1px); }
+
+/* Messages */
+.msg {
+  padding: 15px;
+  border-radius: 12px;
+  margin-bottom: 25px;
+  text-align: center;
+}
+.msg-success { background: rgba(56, 189, 248, 0.1); color: var(--accent); border: 1px solid var(--accent); }
+.msg-error { background: rgba(244, 63, 94, 0.1); color: #fb7185; border: 1px solid #fb7185; }

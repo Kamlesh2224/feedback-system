@@ -36,25 +36,51 @@ $stmt->execute();
 $result = $stmt->get_result();
 ?>
 
-<h2>Select Subject & Teacher</h2>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Select Subject | Student Portal</title>
+    <link rel="stylesheet" href="../assets/css/academic.css">
+</head>
+<body>
 
-<table border="1" cellpadding="10">
-<tr>
-    <th>Subject</th>
-    <th>Teacher</th>
-    <th>Action</th>
-</tr>
+<div class="dashboard-container">
+    <header class="dash-header">
+        <div>
+            
+            <h1 class="dash-title">Academic Feedback</h1>
+        </div>
+        <a href="categories.php" class="btn-back">← Back</a>
+    </header>
 
-<?php while($row = $result->fetch_assoc()) { ?>
-<tr>
-    <td><?php echo $row['subject_name']; ?></td>
-    <td><?php echo $row['teacher_name']; ?></td>
-    <td>
-        <a href="feedback.php?st_id=<?php echo $row['st_id']; ?>&category_id=<?php echo $category_id; ?>">
-            Give Feedback
-        </a>
-    </td>
-</tr>
-<?php } ?>
+    <div class="subject-list">
+        <?php if($result->num_rows > 0): ?>
+            <?php while($row = $result->fetch_assoc()) { ?>
+                <div class="subject-row">
+                    <div class="subject-info">
+                        <span class="subject-tag">Subject</span>
+                        <h3><?php echo htmlspecialchars($row['subject_name']); ?></h3>
+                        <div class="teacher-meta">
+                            <span class="icon">👤</span> 
+                            <span><?php echo htmlspecialchars($row['teacher_name']); ?></span>
+                        </div>
+                    </div>
+                    
+                    <div class="subject-action">
+                        <a href="feedback.php?st_id=<?php echo $row['st_id']; ?>&category_id=<?php echo $category_id; ?>" class="btn-action">
+                            Give Feedback
+                        </a>
+                    </div>
+                </div>
+            <?php } ?>
+        <?php else: ?>
+            <div class="empty-state">
+                <p>No subjects found for your branch.</p>
+            </div>
+        <?php endif; ?>
+    </div>
+</div>
 
-</table>
+</body>
+</html>

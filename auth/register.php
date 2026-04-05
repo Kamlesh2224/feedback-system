@@ -64,7 +64,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <label>Branch / Department</label>
                 <select name="branch" required>
                     <option value="" disabled selected>Select your branch</option>
-                    <option value="CS">Computer Science</option>
+                    <option value="CSE">CSE</option>
                     <option value="IT">Information Technology</option>
                     <option value="MECH">Mechanical</option>
                     <option value="ENTC">E&TC</option>

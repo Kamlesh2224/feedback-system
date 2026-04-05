@@ -9,23 +9,12 @@ if (!isset($_SESSION['student_id'])) {
 
 $student_id = $_SESSION['student_id'];
 
-// GET first
+// GET Parameters
 $category_id = $_GET['category_id'] ?? null;
 $st_id = $_GET['st_id'] ?? null;
-$type = $_GET['type'] ?? null;
 
-// POST override
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $category_id = $_POST['category_id'];
-    $st_id = !empty($_POST['st_id']) ? $_POST['st_id'] : null;
-}
-
-// Remove subject for non-academic
-if ($category_id != 1) {
-    $st_id = null;
-}
-
-// QUESTIONS
+// QUESTIONS Logic
+$questions = [];
 if ($category_id == 1) {
     $questions = [
         1 => "How clearly does the instructor explain complex concepts?",
@@ -52,74 +41,101 @@ if ($category_id == 1) {
     ];
 }
 
-// SUBMIT
+// SUBMIT Logic
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $category_id = $_POST['category_id'];
+    $st_id = !empty($_POST['st_id']) ? $_POST['st_id'] : null;
 
-    // Duplicate check ONLY for academic
+    // Duplicate check for academic
     if ($category_id == 1) {
-        $check = $conn->prepare("
-            SELECT id FROM feedback 
-            WHERE student_id=? AND subject_teacher_id=?
-        ");
+        $check = $conn->prepare("SELECT id FROM feedback WHERE student_id=? AND subject_teacher_id=?");
         $check->bind_param("ii", $student_id, $st_id);
         $check->execute();
         $check->store_result();
 
         if ($check->num_rows > 0) {
-            echo "You already submitted feedback!";
-            exit();
+            $error_msg = "You have already submitted feedback for this subject!";
         }
     }
 
-    $conn->begin_transaction();
-
-    try {
-        $stmt = $conn->prepare("
-            INSERT INTO feedback (student_id, category_id, subject_teacher_id)
-            VALUES (?, ?, ?)
-        ");
-
-        $stmt->bind_param("iii", $student_id, $category_id, $st_id);
-        $stmt->execute();
-
-        $feedback_id = $stmt->insert_id;
-
-        foreach ($_POST['rating'] as $q_no => $rating) {
-            $stmt = $conn->prepare("
-                INSERT INTO feedback_answers (feedback_id, question_number, rating)
-                VALUES (?, ?, ?)
-            ");
-            $stmt->bind_param("iii", $feedback_id, $q_no, $rating);
+    if (!isset($error_msg)) {
+        $conn->begin_transaction();
+        try {
+            $stmt = $conn->prepare("INSERT INTO feedback (student_id, category_id, subject_teacher_id) VALUES (?, ?, ?)");
+            $stmt->bind_param("iii", $student_id, $category_id, $st_id);
             $stmt->execute();
+            $feedback_id = $stmt->insert_id;
+
+            foreach ($_POST['rating'] as $q_no => $rating) {
+                $stmt = $conn->prepare("INSERT INTO feedback_answers (feedback_id, question_number, rating) VALUES (?, ?, ?)");
+                $stmt->bind_param("iii", $feedback_id, $q_no, $rating);
+                $stmt->execute();
+            }
+
+            $conn->commit();
+            $success_msg = "Feedback submitted successfully!";
+        } catch (Exception $e) {
+            $conn->rollback();
+            $error_msg = "Database Error: " . $e->getMessage();
         }
-
-        $conn->commit();
-        echo "Feedback submitted successfully!";
-
-    } catch (Exception $e) {
-        $conn->rollback();
-        echo "Error: " . $e->getMessage();
     }
 }
 ?>
 
-<h2>Feedback Form</h2>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Submit Feedback | Student Portal</title>
+    <link rel="stylesheet" href="../assets/css/feedback.css">
+</head>
+<body>
 
-<form method="POST">
-    <input type="hidden" name="category_id" value="<?php echo $category_id; ?>">
-    <input type="hidden" name="st_id" value="<?php echo $st_id; ?>">
+<div class="dashboard-container">
+    <header class="dash-header">
+        <h1 class="dash-title">Feedback Form</h1>
+        <a href="subjects.php?category_id=<?php echo $category_id; ?>" class="btn-back">← Back</a>
+    </header>
 
-<?php foreach ($questions as $q_no => $q_text) { ?>
-    <p><?php echo $q_text; ?></p>
+    <?php if(isset($success_msg)): ?>
+        <div class="msg msg-success">
+            <?php echo $success_msg; ?> 
+            <a href="dashboard.php" style="color:var(--accent); font-weight:700; margin-left:10px;">Return Home</a>
+        </div>
+    <?php elseif(isset($error_msg)): ?>
+        <div class="msg msg-error"><?php echo $error_msg; ?></div>
+    <?php endif; ?>
 
-    <label><input type="radio" name="rating[<?php echo $q_no; ?>]" value="1" required> Very Bad</label>
-    <label><input type="radio" name="rating[<?php echo $q_no; ?>]" value="2"> Bad</label>
-    <label><input type="radio" name="rating[<?php echo $q_no; ?>]" value="3"> Good</label>
-    <label><input type="radio" name="rating[<?php echo $q_no; ?>]" value="4"> Very Good</label>
-    <label><input type="radio" name="rating[<?php echo $q_no; ?>]" value="5"> Excellent</label>
+    <?php if(!isset($success_msg)): ?>
+    <form method="POST" class="feedback-form">
+        <input type="hidden" name="category_id" value="<?php echo $category_id; ?>">
+        <input type="hidden" name="st_id" value="<?php echo $st_id; ?>">
 
-    <br><br>
-<?php } ?>
+        <?php foreach ($questions as $q_no => $q_text): ?>
+            <div class="question-card">
+                <div class="q-number">Question <?php echo $q_no; ?></div>
+                <p class="q-text"><?php echo $q_text; ?></p>
+                
+                <div class="rating-group">
+                    <?php 
+                    $options = [1 => "Very Bad", 2 => "Bad", 3 => "Good", 4 => "Very Good", 5 => "Excellent"];
+                    foreach ($options as $val => $label): ?>
+                        <label class="rating-option">
+                            <input type="radio" name="rating[<?php echo $q_no; ?>]" value="<?php echo $val; ?>" required>
+                            <span class="rating-label"><?php echo $val; ?> <?php echo $label; ?></span>
+                        </label>
+                    <?php endforeach; ?>
+                </div>
+            </div>
+        <?php endforeach; ?>
 
-<button type="submit">Submit Feedback</button>
-</form>
+        <div class="form-actions">
+            <button type="submit" class="btn-submit">Transmit Feedback</button>
+        </div>
+    </form>
+    <?php endif; ?>
+</div>
+
+</body>
+</html>

@@ -1,54 +1,24 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Feedback System</title>
-
-    <style>
-        body {
-            margin: 0;
-            font-family: Arial;
-            background: linear-gradient(135deg, #0f172a, #1e293b);
-            color: white;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
-
-        .container {
-            text-align: center;
-        }
-
-        h1 {
-            margin-bottom: 30px;
-        }
-
-        .btn {
-            display: block;
-            width: 200px;
-            margin: 10px auto;
-            padding: 12px;
-            background: #334155;
-            color: white;
-            text-decoration: none;
-            border-radius: 8px;
-            transition: 0.3s;
-        }
-
-        .btn:hover {
-            background: #475569;
-        }
-    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feedback System | Home</title>
+    <link rel="stylesheet" href="./assets/css/index.css">
 </head>
-
 <body>
 
-<div class="container">
-    <h1>Feedback System</h1>
+<div class="landing-card">
+    
+    <h1 class="dash-title">Feedback System</h1>
+    <p class="dash-sub">Select an access portal to continue.</p>
 
-    <a href="auth/register.php" class="btn">Register</a>
-    <a href="auth/login.php" class="btn">Login</a>
-    <a href="admin/login.php" class="btn">Admin Login</a>
+    <div class="btn-group">
+        <a href="auth/register.php" class="btn btn-primary">Student Register</a>
+        <a href="auth/login.php" class="btn btn-outline">Student Login</a>
+        <hr class="auth-sep">
+        <a href="admin/login.php" class="btn btn-admin">Admin Login</a>
+    </div>
 </div>
 
 </body>

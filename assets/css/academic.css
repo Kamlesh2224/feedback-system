@@ -1,0 +1,145 @@
+/* ============================================================
+   SUBJECT SELECTION — CYBER DARK LIST
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;700&family=Geist+Mono:wght@400;500&display=swap');
+
+:root {
+  --bg:           #0b1120;
+  --card-bg:      #1e293b;
+  --border:       rgba(255, 255, 255, 0.05);
+  --accent:       #38bdf8;
+  --text-main:    #ffffff;
+  --text-muted:   #94a3b8;
+  --radius:       16px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  min-height: 100vh;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  background-color: var(--bg);
+  color: var(--text-main);
+  padding: 40px 20px;
+}
+
+.dashboard-container {
+  max-width: 850px;
+  margin: 0 auto;
+}
+
+/* ── Header ────────────────────────────────────── */
+.dash-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--border);
+}
+
+.dash-label {
+  font-family: 'Geist Mono', monospace;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--accent);
+}
+
+.btn-back {
+  text-decoration: none;
+  color: var(--text-muted);
+  font-size: 14px;
+}
+
+/* ── Subject List ──────────────────────────────── */
+.subject-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.subject-row {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px 25px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: all 0.2s ease;
+}
+
+.subject-row:hover {
+  border-color: rgba(56, 189, 248, 0.3);
+  background: #232d3d;
+  transform: translateX(5px);
+}
+
+.subject-tag {
+  font-family: 'Geist Mono', monospace;
+  font-size: 10px;
+  color: var(--accent);
+  text-transform: uppercase;
+  margin-bottom: 4px;
+  display: block;
+}
+
+.subject-info h3 {
+  font-size: 18px;
+  margin-bottom: 8px;
+}
+
+.teacher-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  color: var(--text-muted);
+}
+
+/* ── Action Button ────────────────────────────── */
+.btn-action {
+  display: inline-block;
+  padding: 10px 20px;
+  background: transparent;
+  border: 1.5px solid var(--accent);
+  color: var(--accent);
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 700;
+  border-radius: 10px;
+  transition: all 0.2s ease;
+}
+
+.btn-action:hover {
+  background: var(--accent);
+  color: #0b1120;
+  box-shadow: 0 0 15px rgba(56, 189, 248, 0.3);
+}
+
+/* Empty State */
+.empty-state {
+  text-align: center;
+  padding: 50px;
+  color: var(--text-muted);
+  border: 1px dashed var(--border);
+  border-radius: var(--radius);
+}
+
+/* Mobile Responsive */
+@media (max-width: 600px) {
+  .subject-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+  }
+  .subject-action {
+    width: 100%;
+  }
+  .btn-action {
+    width: 100%;
+    text-align: center;
+  }
+}

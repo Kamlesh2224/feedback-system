@@ -14,18 +14,30 @@ $result = $conn->query("SELECT * FROM categories");
 <html>
 <head>
     <title>Select Category</title>
-    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/categories.css">
 </head>
 <body>
 
-<h2>Select Feedback Category</h2>
+<div class="dashboard-container">
+    <header class="dash-header">
+        <div>
+            <h1 class="dash-title">Select Feedback Type</h1>
+        </div>
+        <a href="dashboard.php" class="btn-back">← Back</a>
+    </header>
 
-<div class="container">
-<?php while($row = $result->fetch_assoc()) { ?>
-    <div class="card" onclick="selectCategory(<?php echo $row['id']; ?>)">
-        <?php echo $row['name']; ?>
+    <div class="category-grid">
+        <?php while($row = $result->fetch_assoc()) { ?>
+            <div class="cat-card" onclick="selectCategory(<?php echo $row['id']; ?>)">
+                <div class="cat-icon">📁</div>
+                <div class="cat-info">
+                    <h3><?php echo htmlspecialchars($row['name']); ?></h3>
+                    <p>Click to provide feedback for this department.</p>
+                </div>
+                <div class="cat-badge">Select</div>
+            </div>
+        <?php } ?>
     </div>
-<?php } ?>
 </div>
 
 <script src="../assets/js/script.js"></script>
