@@ -95,7 +95,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <div class="dashboard-container">
     <header class="dash-header">
         <h1 class="dash-title">Feedback Form</h1>
-        <a href="subjects.php?category_id=<?php echo $category_id; ?>" class="btn-back">← Back</a>
+        <a href="academic.php?category_id=<?php echo $category_id; ?>" class="btn-back">← Back</a>
     </header>
 
     <?php if(isset($success_msg)): ?>
